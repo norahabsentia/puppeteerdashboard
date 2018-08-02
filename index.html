@@ -5,31 +5,26 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
+    <title>🔥Visit Generation Page</title>
 </head>
 
 <body>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <nav class="navbar center fixed-top navbar-dark bg-dark">
         <span class="navbar-brand mb-0 h1">Visit Generation Page</span>
     </nav>
     <div class="jumbotron">
         <br>
         <div class="row justify-content-center">
-
-
-            <div class="card" text-center style="width: 50rem;">
+            <div class="card text-center" style="width: 75rem;">
                 <h1 class="display-8 justify-content-center"></h1>
                 <div class="card-body">
                     <h5 class="card-title">Video Page URLs</h5>
@@ -49,37 +44,19 @@
         </div>
         <br>
         <div class="row justify-content-center">
-            <div class="card" text-center style="width: 75rem;">
+            <div class="card text-center" style="width: 75rem;">
                 <div class="card-body">
                     <h5 class="card-title">Call to Actions</h5>
                     <table id="myTable" class=" table order-list">
                         <thead>
                             <tr>
-                                <td style="width: 25%">CTA</td>
+                                <td style="width: 10%">CTA</td>
                                 <td>URL</td>
                                 <td>Mobile Visits</td>
                                 <td>Desktop Visits</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr>
-                                <td style="width: 20%" id="cat1">CTA0
-
-                                </td>
-                                <td style="width: 20%">
-                                    <input type="text" name="url" class="form-control" />
-                                </td>
-                                <td style="width: 20%">
-                                    <input type="text" name="mobile-visits" class="form-control" />
-                                </td>
-                                <td style="width: 20%">
-                                    <input type="text" name="desktop-visits" class="form-control" />
-                                </td>
-                                <td style="width: 5%">
-                                    <a class="deleteRow"></a>
-
-                                </td>
-                            </tr> -->
                         </tbody>
                         <tfoot>
                             <tr>
@@ -94,52 +71,57 @@
                 </div>
             </div>
         </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="card text-center" style="width: 75rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Select Start & End Date-Times</h5>
+                    <p class="card-text">
+                        <input type="text" name="datetimes" style="width:315px" />
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- End of cards -->
     </div>
     </div>
+
 </body>
 <script>
     $(document).ready(function() {
+        //Date picker
+        $('input[name="datetimes"]').daterangepicker({
+            timePicker: true,
+            timePicker24Hour: true,
+            startDate: moment().startOf('hour'),
+            endDate: moment().startOf('hour').add(71, 'hour'),
+            locale: {
+                format: 'DD/MM/YY hh:mm A'
+            }
+        }, function(start, end, label) {
+            console.log("A new date selection was made: " + start.format('DD-MM-YYYY') + " " + start.format("hh:mm A") + ' to ' + end.format('YYYY-MM-DD') + " " + end.format("hh:mm A"));
+        });
+        // Dynamic table row
         var counter = 0;
-
         $("#addrow").on("click", function() {
             var newRow = $("<tr>");
             var cols = "";
-
-            cols += '<td id="cta' + counter + '">CTA' + counter + '</td>';
+            cols += '<td id="cta' + counter + '">CTA #' + counter + '</td>';
             cols += '<td><input type="text" class="form-control" name="url' + counter + '"/></td>';
             cols += '<td><input type="text" class="form-control" name="mobile-visits' + counter + '"/></td>';
             cols += '<td><input type="text" class="form-control" name="desktop-visits' + counter + '"/></td>';
-
             cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
             newRow.append(cols);
             $("table.order-list").append(newRow);
             counter++;
         });
-
-
-
         $("table.order-list").on("click", ".ibtnDel", function(event) {
             $(this).closest("tr").remove();
             counter -= 1
         });
-
-
     });
-
-
-
-    function calculateRow(row) {
-        var price = +row.find('input[name^="price"]').val();
-
-    }
-
-    function calculateGrandTotal() {
-        var grandTotal = 0;
-        $("table.order-list").find('input[name^="price"]').each(function() {
-            grandTotal += +$(this).val();
-        });
-        $("#grandtotal").text(grandTotal.toFixed(2));
-    }
 </script>
 
 </html>
