@@ -18,9 +18,17 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    <nav class="navbar center fixed-top navbar-dark bg-dark">
-        <span class="navbar-brand mb-0 h1">Visit Generation Page</span>
+    <nav class="navbar fixed-top navbar-dark bg-dark">
+        <ul class="nav navbar-nav mx-auto">
+            <li class="nav-item">
+
+                <a class="nav-link" href="#">
+                    <h1 class="display-7">Visit Generation Page</h1>
+                </a>
+            </li>
+        </ul>
     </nav>
+    <br>
     <div class="jumbotron">
         <br>
         <div class="row justify-content-center">
@@ -82,8 +90,11 @@
                 </div>
             </div>
         </div>
+        <br>
+        <div class="row justify-content-center">
+            <button type="button" id="generate" class="btn btn-info">Generate</button>
 
-
+        </div>
         <!-- End of cards -->
     </div>
     </div>
@@ -120,6 +131,10 @@
         $("table.order-list").on("click", ".ibtnDel", function(event) {
             $(this).closest("tr").remove();
             counter -= 1
+        });
+        //Generate click listener
+        document.getElementById("generate").addEventListener("click", function() {
+            alert("Sending inputs to server");
         });
     });
 </script>
