@@ -13,13 +13,133 @@
 </head>
 
 <body>
-    <h1>Hello, world!</h1>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <nav class="navbar center fixed-top navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">Visit Generation Page</span>
+    </nav>
+    <div class="jumbotron">
+        <br>
+        <div class="row justify-content-center">
+
+
+            <div class="card" text-center style="width: 50rem;">
+                <h1 class="display-8 justify-content-center"></h1>
+                <div class="card-body">
+                    <h5 class="card-title">Video Page URLs</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Upload CSV with URLs & Region</h6>
+                    <h5 class="card-title"></h5>
+                    <div class="input-group mb-1">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile02">
+                            <label class="custom-file-label" for="inputGroupFile02">Choose .csv file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="">Upload</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="card" text-center style="width: 75rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Call to Actions</h5>
+                    <table id="myTable" class=" table order-list">
+                        <thead>
+                            <tr>
+                                <td style="width: 25%">CTA</td>
+                                <td>URL</td>
+                                <td>Mobile Visits</td>
+                                <td>Desktop Visits</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr>
+                                <td style="width: 20%" id="cat1">CTA0
+
+                                </td>
+                                <td style="width: 20%">
+                                    <input type="text" name="url" class="form-control" />
+                                </td>
+                                <td style="width: 20%">
+                                    <input type="text" name="mobile-visits" class="form-control" />
+                                </td>
+                                <td style="width: 20%">
+                                    <input type="text" name="desktop-visits" class="form-control" />
+                                </td>
+                                <td style="width: 5%">
+                                    <a class="deleteRow"></a>
+
+                                </td>
+                            </tr> -->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" style="text-align: left;">
+                                    <input type="button" class="btn btn-lg btn-block " id="addrow" value="➕ Add CTA" />
+                                </td>
+                            </tr>
+                            <tr>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 </body>
+<script>
+    $(document).ready(function() {
+        var counter = 0;
+
+        $("#addrow").on("click", function() {
+            var newRow = $("<tr>");
+            var cols = "";
+
+            cols += '<td id="cta' + counter + '">CTA' + counter + '</td>';
+            cols += '<td><input type="text" class="form-control" name="url' + counter + '"/></td>';
+            cols += '<td><input type="text" class="form-control" name="mobile-visits' + counter + '"/></td>';
+            cols += '<td><input type="text" class="form-control" name="desktop-visits' + counter + '"/></td>';
+
+            cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+            newRow.append(cols);
+            $("table.order-list").append(newRow);
+            counter++;
+        });
+
+
+
+        $("table.order-list").on("click", ".ibtnDel", function(event) {
+            $(this).closest("tr").remove();
+            counter -= 1
+        });
+
+
+    });
+
+
+
+    function calculateRow(row) {
+        var price = +row.find('input[name^="price"]').val();
+
+    }
+
+    function calculateGrandTotal() {
+        var grandTotal = 0;
+        $("table.order-list").find('input[name^="price"]').each(function() {
+            grandTotal += +$(this).val();
+        });
+        $("#grandtotal").text(grandTotal.toFixed(2));
+    }
+</script>
 
 </html>
